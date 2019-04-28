@@ -92,8 +92,16 @@ public abstract class BaseActivity extends AppCompatActivity {
             EventBus.getDefault().register(this);
         }
 //        初始化Presenter层
+        presenterBase = getPresenterBase();
         initData();
     }
+
+    /**
+     * 初始化Presenter层
+     *
+     * @return
+     */
+    public abstract PresenterBase getPresenterBase();
 
     /**
      * 初始化数据
@@ -108,62 +116,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public abstract boolean haveEventBus();
 
-    /**
-     * 创建观察者
-     *
-     * @param onNext
-     * @param <T>
-     * @return
-     */
-    public <T> Subscriber newSubscriber(final Action1<? super T> onNext) {
-        return new Subscriber<T>() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                //showProgressDialog();
-            }
-
-            @Override
-            public void onCompleted() {
-                //dismissProgressDialog();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                if (e instanceof RetrofitUtil.APIException) {
-                    RetrofitUtil.APIException exception = (RetrofitUtil.APIException) e;
-                    ToastUtil.showShortToast(mContext, exception.message);
-                } else if (e instanceof SocketTimeoutException) {
-                    ToastUtil.showShortToast(mContext, "链接超时");
-                } else if (e instanceof ConnectException) {
-                    ToastUtil.showShortToast(mContext, e.getMessage());
-                } else if (e instanceof HttpException) {
-
-                    HttpException exception = (HttpException) e;
-                    String message = exception.response().message();
-                    int code = exception.response().code();
-                    if (code == 500) {
-//                        ToastUtil.showShortToast(mContext, "网络异常");
-                    }
-                }
-                if (!HttpUtils.isNetWorkAvailable(mContext)) {
-                    ToastUtil.showShortToast(mContext, "网络异常，请检查您的网络...");
-                }
-                Logger.e(TAG, String.valueOf(e.getMessage()) + ".......");
-                EventBus.getDefault().post(new ErrorEvent("Error"));
-
-                dismissProgressDialog();
-            }
-
-            @Override
-            public void onNext(T t) {
-                if (!mCompositeSubscription.isUnsubscribed()) {
-                    onNext.call(t);
-                }
-            }
-
-        };
-    }
 
     @Override
     protected void onDestroy() {
@@ -171,7 +123,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
-
         if (haveEventBus()) {
             EventBus.getDefault().unregister(this);
         }
@@ -179,32 +130,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         // 如果还想使用CompositeSubscription，就必须在创建一个新的对象了。
 //        这句话必须加 要不然容易造成内存泄漏
         mCompositeSubscription.unsubscribe();
-        dismissProgressDialog();
 //        取消网络加载中等待框
-        if (presenterBase!=null){
+        if (presenterBase != null) {
             presenterBase.dismissProgressDialog();
         }
-    }
-
-    //转圈圈dialog
-    public CustomProgressDialog progressDialog;
-
-    public void showProgressDialog() {
-        showProgressDialog("请稍后。。。");
-    }
-
-    public void showProgressDialog(String message) {
-        if (progressDialog == null) {
-            progressDialog = CustomProgressDialog.createDialog(this);
-            progressDialog.setCanceledOnTouchOutside(false);
-        }
-        progressDialog.setMessage(message);
-        progressDialog.show();
-    }
-
-    public void dismissProgressDialog() {
-        if (progressDialog != null && progressDialog.isShowing())
-            progressDialog.dismiss();
     }
 
     //设置activity沉浸式状态栏

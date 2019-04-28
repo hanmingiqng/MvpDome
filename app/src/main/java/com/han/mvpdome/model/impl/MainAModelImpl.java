@@ -26,6 +26,7 @@ public class MainAModelImpl extends ModerBase implements IMainAModel {
 
     @Override
     public void getList(Map<String, String> map, final CallBack callBack) {
+        showProgressDialog();
         Subscription subscription = apiWrapper
                 .getBank(null)
                 .subscribeOn(Schedulers.io())

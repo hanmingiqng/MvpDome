@@ -23,8 +23,6 @@ public class PresenterBase {
         this.mContext = mContext;
     }
 
-    public void setmIMainAView(ActivityView activityView) {
-    }
 
     public void setModerBase(ModerBase moderBase) {
         this.moderBase = moderBase;

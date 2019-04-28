@@ -23,12 +23,16 @@ public class MainActivity extends BaseActivity implements IMainAView {
         return R.layout.activity_main;
     }
 
+    @Override
+    public PresenterBase getPresenterBase() {
+        mainAPresenter = new MainAPresenterImpl(this, this);
+        return mainAPresenter;
+    }
+
 
     @Override
     public void initData() {
-        mainAPresenter = new MainAPresenterImpl(this);
         //        设置回调
-        mainAPresenter.setmIMainAView(this);
         Map<String, String> dataMap = new HashMap<>();
         dataMap.put("checkCode", 111 + "");
         dataMap.put("loginName", "ceshi_han");

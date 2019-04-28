@@ -19,18 +19,11 @@ public class MainAPresenterImpl<T> extends PresenterBase implements IMainAPresen
     private MainAModelImpl mainAModel;
     private IMainAView iMainAView;
 
-    public MainAPresenterImpl(Context mContext) {
+    public MainAPresenterImpl(Context mContext, IMainAView iMainAView) {
         super(mContext);
+        this.iMainAView = iMainAView;
         mainAModel = new MainAModelImpl(mContext);
         setModerBase(mainAModel);
-    }
-
-    @Override
-    public void setmIMainAView(ActivityView activityView) {
-        if (activityView != null) {
-            iMainAView = (IMainAView) activityView;
-        }
-
     }
 
     @Override
