@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:id="@+id/bgTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/text44dp"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/img_top_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:filterTouchesWhenObscured="true"
+            android:paddingLeft="@dimen/text20dp"
+            android:paddingRight="@dimen/text20dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/tv_top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLength="15"
+            android:text="@string/app_name"
+            android:textColor="@color/top_title"
+            android:textSize="@dimen/title_size48"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_top_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:filterTouchesWhenObscured="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/text20dp"
+            android:paddingRight="@dimen/text20dp"
+            android:text="管理"
+            android:textColor="#333"
+            android:textSize="40px"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_top_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:filterTouchesWhenObscured="true"
+            android:paddingLeft="@dimen/text20dp"
+            android:paddingRight="@dimen/text20dp"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/lineView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/main_line"
+            android:visibility="visible" />
+    </RelativeLayout>
+</LinearLayout>
+
+
