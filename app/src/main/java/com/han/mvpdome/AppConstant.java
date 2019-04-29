@@ -67,6 +67,8 @@ public class AppConstant {
     public final class SpConstants {
         public static final String USER_INFO = "xmind_user_info";
 
+        public static final String USER = "user";//保存用户信息
+
         public static final String IS_FIRST = "isFirst";
 
         public static final String CLIENT_ID = "UserId";
@@ -92,6 +94,14 @@ public class AppConstant {
 
     public final class OtherSDKNumber {
         public static final String WX_APP_KEY = "wxc4305cfa36ca4412";
+    }
+    public final class App {
+        public static final String AppName = "MvpDome";//下载安装包名
+    }
+    public final class Db{
+        public static final String DB_NAME = "cache.db";//数据库名
+        public static final int DB_VERSION = 1;//版本号
+        public  static final String CACHE_TABLE = "cache";//表名
     }
 
 }

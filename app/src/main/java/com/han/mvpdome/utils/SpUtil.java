@@ -7,8 +7,11 @@ import android.content.SharedPreferences.Editor;
 
 import com.google.gson.Gson;
 import com.han.mvpdome.AppConstant;
+import com.han.mvpdome.beans.LoginBean;
 
 import java.util.HashSet;
+
+import static android.content.Context.MODE_APPEND;
 
 /**
  * 轻量级数据存储工具类
@@ -30,7 +33,7 @@ public class SpUtil {
         }
 
         if (null == sp) {
-            sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_APPEND);
+            sp = mContext.getSharedPreferences(SP_NAME, MODE_APPEND);
         }
     }
 
@@ -188,27 +191,27 @@ public class SpUtil {
      *
      * @param context 应用程序上下文环境
      */
+    @SuppressLint("WrongConstant")
     public void clear(Context context) {
         if (null == context) {
             return;
         }
-        SharedPreferences pref = context.getSharedPreferences(SP_NAME, Context.MODE_APPEND);
+        SharedPreferences pref = context.getSharedPreferences(SP_NAME, MODE_APPEND);
         Editor editor = pref.edit();
         editor.clear();
         editor.apply();
     }
 
-    private final String USER_INFO = "userInfoBean";
-//
-//    public LoginBean.DataBean getUserInfo() {
-//        LoginBean.DataBean userInfoBean = new Gson().fromJson(sp.getString(USER_INFO, ""), LoginBean.DataBean.class);
-//        return userInfoBean != null ? userInfoBean : new LoginBean.DataBean();
-//    }
-//
-//    public void setUserInfo(LoginBean.DataBean userBean) {
-//        if (userBean != null) {
-//            sp.edit().putString(USER_INFO, new Gson().toJson(userBean)).apply();
-//        }
-//    }
+    //保存用户信息
+    public LoginBean.DataBean getUserInfo() {
+        LoginBean.DataBean userInfoBean = new Gson().fromJson(sp.getString(AppConstant.SpConstants.USER, ""), LoginBean.DataBean.class);
+        return userInfoBean != null ? userInfoBean : new LoginBean.DataBean();
+    }
+
+    public void setUserInfo(LoginBean.DataBean userBean) {
+        if (userBean != null) {
+            sp.edit().putString(AppConstant.SpConstants.USER, new Gson().toJson(userBean)).apply();
+        }
+    }
 
 }

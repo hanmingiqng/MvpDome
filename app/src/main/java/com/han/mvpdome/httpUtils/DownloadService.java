@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 
+import com.han.mvpdome.AppConstant;
 import com.han.mvpdome.beans.DownloadEvent;
 import com.han.mvpdome.utils.DeviceUtil;
 import com.han.mvpdome.utils.StringUtils;
@@ -38,25 +39,26 @@ public class DownloadService extends IntentService {
                 download.setCurrentFileSize(bytesRead);
                 int progress = (int) ((bytesRead * 100) / contentLength);
                 download.setProgress(progress);
-
+//下载中
                 sendIntent(download);
             }
         };
         File outputFile = new File(Environment.getExternalStoragePublicDirectory
-                (Environment.DIRECTORY_DOWNLOADS), "didaxiaozhen" + DeviceUtil.getVersionName(this) + ".apk");
+                (Environment.DIRECTORY_DOWNLOADS), AppConstant.App.AppName + DeviceUtil.getVersionName(this) + ".apk");
         String baseUrl = StringUtils.getHostName(apkUrl);
 //
         DownloadEvent downloadEvent = new DownloadEvent();
         downloadEvent.setDownload(0);
-        downloadEvent.setOriginClass("downloadStart");
+        downloadEvent.setOriginClass(DownloadEvent.ColorEnum.SdownloadStart);
         EventBus.getDefault().post(downloadEvent);
         new DownloadAPI(baseUrl, listener).downloadAPK(apkUrl, outputFile, new Subscriber() {
             @Override
             public void onCompleted() {
 //                完成
+//                下载完成
                 DownloadEvent downloadEvent = new DownloadEvent();
                 downloadEvent.setDownload(0);
-                downloadEvent.setOriginClass("downloadSucceed");
+                downloadEvent.setOriginClass(DownloadEvent.ColorEnum.downloadSucceed);
                 EventBus.getDefault().post(downloadEvent);
             }
 
@@ -65,7 +67,7 @@ public class DownloadService extends IntentService {
                 e.printStackTrace();
                 DownloadEvent downloadEvent = new DownloadEvent();
                 downloadEvent.setDownload(0);
-                downloadEvent.setOriginClass("downloadEnd");
+                downloadEvent.setOriginClass(DownloadEvent.ColorEnum.downloadEnd);
                 EventBus.getDefault().post(downloadEvent);
                 Log.e(TAG, "onError: " + e.getMessage());
             }
@@ -84,7 +86,7 @@ public class DownloadService extends IntentService {
 
         DownloadEvent downloadEvent = new DownloadEvent();
         downloadEvent.setDownload(download.getProgress());
-        downloadEvent.setOriginClass("downloadUpdate");
+        downloadEvent.setOriginClass(DownloadEvent.ColorEnum.downloadUpdate);
         EventBus.getDefault().post(downloadEvent);
     }
 
