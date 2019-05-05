@@ -76,7 +76,6 @@ public class StatusBarUtils {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void statusBarSetting(Activity activity) {
         View view = getStatusBarView(activity);
         if (view == null) {

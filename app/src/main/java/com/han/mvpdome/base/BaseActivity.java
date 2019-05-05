@@ -93,6 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 //        初始化Presenter层
         presenterBase = getPresenterBase();
+        initView();
         initData();
     }
 
@@ -102,6 +103,11 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return
      */
     public abstract PresenterBase getPresenterBase();
+
+    /**
+     * 初始化页面
+     */
+    public abstract void initView();
 
     /**
      * 初始化数据
