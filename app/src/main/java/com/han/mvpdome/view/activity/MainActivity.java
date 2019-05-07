@@ -1,33 +1,57 @@
 package com.han.mvpdome.view.activity;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.han.mvpdome.R;
 import com.han.mvpdome.base.BaseActivity;
 import com.han.mvpdome.base.BaseFragment;
+import com.han.mvpdome.inter.PermissionsBase;
 import com.han.mvpdome.presenter.PresenterBase;
 import com.han.mvpdome.presenter.impl.MainAPresenterImpl;
+import com.han.mvpdome.utils.DeviceUtil;
+import com.han.mvpdome.utils.ToastUtil;
 import com.han.mvpdome.view.fragment.Mian1Fragment;
 import com.han.mvpdome.view.fragment.Mian2Fragment;
 import com.han.mvpdome.view.fragment.Mian3Fragment;
 import com.han.mvpdome.view.fragment.MianFragment;
 import com.han.mvpdome.view.inter.IMainAView;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity implements IMainAView {
 
@@ -36,7 +60,6 @@ public class MainActivity extends BaseActivity implements IMainAView {
     private MainAPresenterImpl mainAPresenter;
     private ArrayList<BaseFragment> fragmentList;
     private BaseFragment oneFragment, mian1Fragment, mian2Fragment, mian3Fragment;
-    private int screenWidth;
 
     @Override
     public int getLayoutId() {
@@ -48,9 +71,18 @@ public class MainActivity extends BaseActivity implements IMainAView {
         return new MainAPresenterImpl(this, this);
     }
 
+    @OnClick(R.id.btn)
+    public void OnClick() {
+        requestEachCombined(new PermissionsBase() {
+            @Override
+            public void isOK() {
+                ToastUtil.showShortToast(mContext, "权限申请成功");
+            }
+        }, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.VIBRATE);
+    }
+
     @Override
     public void initView() {
-        screenWidth = getResources().getDisplayMetrics().widthPixels;
         fragmentList = new ArrayList<BaseFragment>();
 //        for (int x = 0; x < 4; x++) {
         oneFragment = new MianFragment();
@@ -75,7 +107,14 @@ public class MainActivity extends BaseActivity implements IMainAView {
         fragmentList.add(mian3Fragment);
 //        }
         vpMain.setAdapter(new MyFrageStatePagerAdapter(getSupportFragmentManager()));
+        requestEachCombined(new PermissionsBase() {
+            @Override
+            public void isOK() {
+                ToastUtil.showShortToast(mContext, "权限申请成功");
+            }
+        }, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.VIBRATE);
     }
+
 
     //当前选中的项
     int currenttab = -1;
@@ -89,7 +128,9 @@ public class MainActivity extends BaseActivity implements IMainAView {
         dataMap.put("loginName", "ceshi_han");
         dataMap.put("password ", "123456");
 //        mainAPresenter.getList(dataMap);
+
     }
+
 
     class MyFrageStatePagerAdapter extends FragmentStatePagerAdapter {
 

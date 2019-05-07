@@ -7,6 +7,13 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- SD卡权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--相机权限-->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!--允许程序振动-->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"

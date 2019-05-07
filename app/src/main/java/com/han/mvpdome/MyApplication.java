@@ -9,6 +9,7 @@ import com.han.mvpdome.utils.CrashHandler;
 import com.han.mvpdome.utils.SpUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * xmind
@@ -31,6 +32,13 @@ public class MyApplication extends Application {
         super.onCreate();
         mInstance = this;
 //        FrescoImageLoader.init(this);
+//        检查内存泄漏
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
         context = getApplicationContext();
         //尺寸适配
 //        ScreenAdapterTools.init(this);

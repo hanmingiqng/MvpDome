@@ -1,14 +1,20 @@
 package com.han.mvpdome.base;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -22,6 +28,7 @@ import com.han.mvpdome.customview.CustomProgressDialog;
 import com.han.mvpdome.httpUtils.ApiWrapper;
 import com.han.mvpdome.httpUtils.HttpUtil;
 import com.han.mvpdome.httpUtils.RetrofitUtil;
+import com.han.mvpdome.inter.PermissionsBase;
 import com.han.mvpdome.presenter.PresenterBase;
 import com.han.mvpdome.utils.AppManager;
 import com.han.mvpdome.utils.HttpUtils;
@@ -29,6 +36,8 @@ import com.han.mvpdome.utils.Logger;
 import com.han.mvpdome.utils.StatusBarUtils;
 import com.han.mvpdome.utils.ToastUtil;
 import com.han.mvpdome.view.inter.IMainAView;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,6 +48,7 @@ import java.net.SocketTimeoutException;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.functions.Consumer;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.functions.Action1;
@@ -95,6 +105,62 @@ public abstract class BaseActivity extends AppCompatActivity {
         presenterBase = getPresenterBase();
         initView();
         initData();
+    }
+
+    RxPermissions rxPermissions;
+
+    public void requestEachCombined(final PermissionsBase permissionsBase, String... permissions) {
+        if (rxPermissions==null){
+            rxPermissions = new RxPermissions(this);
+        }
+        rxPermissions.requestEachCombined(permissions).
+                subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                        if (permission.granted) {
+                            permissionsBase.isOK();
+                            // 用户已经同意该权限
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                            ToastUtil.showShortToast(mContext, "请求权限失败");
+                        } else {
+                            // 用户拒绝了该权限，并且选中『不再询问』
+                            AlertDialogShow();
+                        }
+                    }
+                });
+    }
+
+    AlertDialog dialog;
+
+    //提示跳转到设置
+    public void AlertDialogShow() {
+        if (dialog == null) {
+            String mRationale = "如果没有请求的权限，此应用程序可能无法正常工作,打开app设置界面修改app权限。";
+            String mTitle = "权限要求";
+            dialog = new AlertDialog.Builder(this)
+                    .setTitle(mTitle)//设置对话框的标题
+                    .setMessage(mRationale)//设置对话框的内容
+                    //设置对话框的按钮
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ToastUtil.showShortToast(mContext, "只有给予该权限,才能正常使用");
+                            dialog.dismiss();
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+//                            跳转到设置权限页面
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                    .setData(Uri.fromParts("package", getPackageName(), null));
+                            intent.addFlags(0);
+                            startActivityForResult(intent, 7534);
+                        }
+                    }).create();
+        }
+        dialog.show();
     }
 
     /**
