@@ -42,7 +42,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * p层
      */
-    private PresenterBase presenterBase;
+    public PresenterBase presenterBase;
 
     /**
      * 获取加载View的ID

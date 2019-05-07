@@ -28,7 +28,6 @@ import butterknife.Unbinder;
 public class MianFragment extends BaseFragment implements IMianFView {
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    Unbinder unbinder;
     private String data;
     private IMianFPresenter mIMianFPresenter;
 
@@ -42,6 +41,7 @@ public class MianFragment extends BaseFragment implements IMianFView {
     public void initView() {
         data = getArguments().getString("data");
         tvTitle.setText(data);
+        mIMianFPresenter = (IMianFPresenter) presenterBase;
     }
 
     @Override
