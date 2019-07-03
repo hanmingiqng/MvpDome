@@ -1,0 +1,165 @@
+/*
+Shared gradle properties
+ */
+ext {
+
+    android = [
+            compileSdkVersion: 28,
+            minSdkVersion    : 15,
+            targetSdkVersion : 28,
+            javaVersion      : JavaVersion.VERSION_1_8,
+            versionCode      : 1,
+            versionName      : '1.0',
+    ]
+
+
+    depsVersion = [
+
+            TINKER_VERSION                    : '1.9.13',
+            TINKERPATCH_VERSION               : '1.2.13',
+
+            rxpermissionsVersion              : '0.10.2',
+
+            supportVersion                    : '28.0.0',
+            constraintLayoutVersion           : '1.1.3',
+            junitVersion                      : '4.12',
+            supportTestVersion                : '1.0.2',
+            supportTestEspressonVersion       : '3.0.2',
+            multidexVersion                   : '1.0.3',
+
+            butterknifeVersion                : '8.8.1',
+
+            retrofitVersion                   : '2.1.0',
+            retrofitGsonVersion               : '2.0.0-beta3',
+            okhttpVersion                     : '3.11.0',//4.0.0
+            rxJavaVersion                     : '1.1.8',//2.2.10 3.0.0-RC0
+            rxAndroidVersion                  : '1.2.1',//2.1.1
+
+            glideVersion                      : '4.9.0',
+
+            eventbusVersion                   : '3.0.0',
+
+            gsonVersion                       : '2.8.1',
+
+            loggerVersion                     : '2.2.0',
+
+            smartrefreshVersion               : '1.1.0-alpha-28',
+
+            aviVersion                        : '2.1.3',
+
+
+
+            timberVersion                     : '4.1.2',
+            rxLifecycleVersion                : '0.6.1',
+            supportUiVersion                  : '0.1.9',
+            recyclerviewFlexibleDividerVersion: '1.2.9',
+            frescoVersion                     : '0.11.0',
+            leakcanaryAndroidVersion          : '1.3.1',
+            ottoVersion                       : '1.3.8',
+            paginateVersion                   : '0.5.1',
+            materialDialogsVersion            : '0.8.5.9',
+            kprogresshudVersion               : '1.0.5',
+            easyrecycleradaptersVersion       : '1.0.10',
+            prefsVersion                      : '1.1.0',
+            smoothprogressbarVersion          : '1.1.0',
+            recyclerviewAnimatorsbarVersion   : '1.3.0',
+            materialishProgressVersion        : '1.7',
+
+
+            daggerCompilerVersion             : '2.0.2',
+            daggerVersion                     : '2.0.2',
+            javaxAnnotationVersion            : '10.0-b28',
+            swipeToolVersion                  : '1.0.1',
+            photoViewVersion                  : '1.4.0',
+            chrisbanesphotoViewVersion        : '1.3.1',
+            pagerSlidingTabstripVersion       : '1.3',
+
+            icePickVersion                    : '3.2.0',
+            icePickProcessorVersion           : '3.2.0',
+            materialiconsVersion              : '1.0.2',
+            statusBarVersion                  : '0.7',
+            andPermissionVersion              : '2.0.0-rc12',
+    ]
+
+    deps = [
+//            6.0权限
+rxPermissions              : 'com.github.tbruyelle:rxpermissions:' + depsVersion.rxpermissionsVersion,
+//support
+appcompatV7                : 'com.android.support:appcompat-v7:' + depsVersion.supportVersion,
+constraintLayout           : 'com.android.support.constraint:constraint-layout:' + depsVersion.constraintLayoutVersion,
+jUnit                      : 'junit:junit:' + depsVersion.junitVersion,
+supportTest                : 'com.android.support.test:runner:' + depsVersion.supportTestVersion,
+supportTestEspresson       : 'com.android.support.test.espresso:espresso-core:' + depsVersion.supportTestEspressonVersion,
+supportV4                  : 'com.android.support:support-v4:' + depsVersion.supportVersion,
+design                     : 'com.android.support:design:' + depsVersion.supportVersion,
+cardviewV7                 : 'com.android.support:cardview-v7:' + depsVersion.supportVersion,
+multiDex                   : 'com.android.support:multidex:' + depsVersion.multidexVersion,
+//
+supportAnnotations         : 'com.android.support:support-annotations:' + depsVersion.supportVersion,
+gridlayoutV7               : 'com.android.support:gridlayout-v7:' + depsVersion.supportVersion,
+recyclerviewV7             : 'com.android.support:recyclerview-v7:' + depsVersion.supportVersion,
+//butterknife
+butterknife                : 'com.jakewharton:butterknife:' + depsVersion.butterknifeVersion,
+butterknifeCompiler        : 'com.jakewharton:butterknife-compiler:' + depsVersion.butterknifeVersion,
+//retrofit
+retrofit                   : 'com.squareup.retrofit2:retrofit:' + depsVersion.retrofitVersion,
+adapterRxjava              : 'com.squareup.retrofit2:adapter-rxjava:' + depsVersion.retrofitVersion,
+converterGson              : 'com.squareup.retrofit2:converter-gson:' + depsVersion.retrofitGsonVersion,
+converterJackson           : 'com.squareup.retrofit2:converter-jackson:' + depsVersion.retrofitVersion,
+//okhttp
+
+okhttp                     : 'com.squareup.okhttp3:okhttp:' + depsVersion.okhttpVersion,
+okhttpUrlconnection        : 'com.squareup.okhttp3:okhttp-urlconnection:' + depsVersion.okhttpVersion,
+loggingInterceptor         : 'com.squareup.okhttp3:logging-interceptor:' + depsVersion.okhttpVersion,
+// rxjava
+rxjava                     : 'io.reactivex:rxjava:' + depsVersion.rxJavaVersion,
+rxandroid                  : 'io.reactivex:rxandroid:' + depsVersion.rxAndroidVersion,
+//图片glide
+glide                      : 'com.github.bumptech.glide:glide:' + depsVersion.glideVersion,
+glideCompiler              : 'com.github.bumptech.glide:compiler:' + depsVersion.glideVersion,
+//eventbus 消息总线
+eventbus                   : 'org.greenrobot:eventbus:' + depsVersion.eventbusVersion,
+//gson解析
+gson                       : 'com.google.code.gson:gson:' + depsVersion.gsonVersion,
+//Log
+logger                     : 'com.orhanobut:logger:' + depsVersion.loggerVersion,
+// //下拉刷新 上拉加载
+SmartRefreshLayout         : 'com.scwang.smartrefresh:SmartRefreshLayout:' + depsVersion.smartrefreshVersion,
+SmartRefreshHeader         : 'com.scwang.smartrefresh:SmartRefreshHeader:' + depsVersion.smartrefreshVersion,
+//加载动画
+avi                        : 'com.wang.avi:library:' + depsVersion.aviVersion,
+
+
+timber                     : 'com.jakewharton.timber:timber:' + depsVersion.timberVersion,
+easyrecycleradapters       : 'com.smartydroid:easyrecycleradapters:' + depsVersion.easyrecycleradaptersVersion,
+prefs                      : 'me.alexrs:prefs:' + depsVersion.prefsVersion,
+smoothprogressbar          : 'com.github.castorflex.smoothprogressbar:library-circular:' + depsVersion.smoothprogressbarVersion,
+recyclerviewAnimators      : 'jp.wasabeef:recyclerview-animators:' + depsVersion.recyclerviewAnimatorsbarVersion,
+kprogresshud               : 'com.kaopiz:kprogresshud:' + depsVersion.kprogresshudVersion,
+materialDialogs            : 'com.afollestad.material-dialogs:core:' + depsVersion.materialDialogsVersion,
+paginate                   : 'com.github.markomilos:paginate:' + depsVersion.paginateVersion,
+supportUi                  : 'com.smartydroid:support-ui:' + depsVersion.supportUiVersion,
+recyclerviewFlexibleDivider: 'com.yqritc:recyclerview-flexibledivider:' + depsVersion.recyclerviewFlexibleDividerVersion,
+fresco                     : 'com.facebook.fresco:fresco:' + depsVersion.frescoVersion,
+leakcanaryAndroid          : 'com.squareup.leakcanary:leakcanary-android:' + depsVersion.leakcanaryAndroidVersion,
+leakcanaryAndroidNoOp      : 'com.squareup.leakcanary:leakcanary-android-no-op:' + depsVersion.leakcanaryAndroidVersion,
+otto                       : 'com.squareup:otto:' + depsVersion.ottoVersion,
+materialishProgress        : 'com.pnikosis:materialish-progress:' + depsVersion.materialishProgressVersion,
+
+
+dagger                     : 'com.google.dagger:dagger:' + depsVersion.daggerVersion,
+daggerCompiler             : 'com.google.dagger:dagger-compiler:' + depsVersion.daggerCompilerVersion,
+javaxAnnotation            : 'org.glassfish:javax.annotation:' + depsVersion.javaxAnnotationVersion,
+ultimateSwipeTool          : 'com.anthony.ultimateswipetool:library:' + depsVersion.swipeToolVersion,
+photoView                  : 'com.bm.photoview:library:' + depsVersion.photoViewVersion,
+pagerSlidingTabStrip       : 'com.gxz.pagerslidingtabstrip:library:' + depsVersion.pagerSlidingTabstripVersion,
+rxLifecycle                : 'com.trello:rxlifecycle:' + depsVersion.rxLifecycleVersion,
+
+icePick                    : 'frankiesardo:icepick:' + depsVersion.icePickVersion,
+icePickProcessor           : 'frankiesardo:icepick-processor:' + depsVersion.icePickProcessorVersion,
+chrisbanesPhotoView        : 'com.github.chrisbanes:PhotoView:' + depsVersion.chrisbanesphotoViewVersion,
+materialicons              : 'com.malinskiy:materialicons:' + depsVersion.materialiconsVersion,
+statusBarCompat            : 'com.githang:status-bar-compat:' + depsVersion.statusBarVersion,
+andPermission              : 'com.yanzhenjie:permission:' + depsVersion.andPermissionVersion
+    ]
+}

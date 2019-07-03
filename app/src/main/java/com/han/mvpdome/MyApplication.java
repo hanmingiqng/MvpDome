@@ -3,13 +3,16 @@ package com.han.mvpdome;
 import android.app.Application;
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 
 import com.bumptech.glide.request.target.ViewTarget;
 import com.han.mvpdome.utils.CrashHandler;
 import com.han.mvpdome.utils.SpUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-import com.squareup.leakcanary.LeakCanary;
+import com.tencent.tinker.entry.ApplicationLike;
+import com.tinkerpatch.sdk.TinkerPatch;
+import com.tinkerpatch.sdk.loader.TinkerPatchApplicationLike;
 
 /**
  * xmind
@@ -20,25 +23,27 @@ import com.squareup.leakcanary.LeakCanary;
 
 public class MyApplication extends Application {
 
+    private static final String TAG = "MyApplication";
     private static MyApplication mInstance;
     private static Context context;//公共的上下文变量
 
     private SpUtil spUtil;
 
     public Vibrator mVibrator;
+    private ApplicationLike tinkerApplicationLike;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
 //        FrescoImageLoader.init(this);
-//        检查内存泄漏
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
+////        检查内存泄漏
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // This process is dedicated to LeakCanary for heap analysis.
+//            // You should not init your app in this process.
+//            return;
+//        }
+//        LeakCanary.install(this);
         context = getApplicationContext();
         //尺寸适配
 //        ScreenAdapterTools.init(this);
@@ -62,7 +67,50 @@ public class MyApplication extends Application {
 //设置全局异常捕获
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(context);
+// 我们可以从这里获得Tinker加载过程的信息
+//        tinkerApplicationLike = TinkerPatchApplicationLike.getTinkerPatchApplicationLike();
+//
+//        // 初始化TinkerPatch SDK, 更多配置可参照API章节中的,初始化SDK
+//        TinkerPatch.init(tinkerApplicationLike)
+//                .reflectPatchLibrary()
+//                .setPatchRollbackOnScreenOff(true)
+//                .setPatchRestartOnSrceenOff(true)
+//                .setFetchPatchIntervalByHours(3);
+//        // 获取当前的补丁版本
+//        Log.d(TAG, "Current patch version is " + TinkerPatch.with().getPatchVersion());
+//        // 每隔3个小时(通过setFetchPatchIntervalByHours设置)去访问后台时候有更新,通过handler实现轮训的效果
+//        TinkerPatch.with().fetchPatchUpdateAndPollWithInterval();
+//        TinkerPatch.with().fetchPatchUpdate(true);
+        initTinkerPatch();
     }
+    /**
+     * 我们需要确保至少对主进程跟patch进程初始化 TinkerPatch
+     */
+    private void initTinkerPatch() {
+        // 我们可以从这里获得Tinker加载过程的信息
+        if (BuildConfig.TINKER_ENABLE) {
+            tinkerApplicationLike = TinkerPatchApplicationLike.getTinkerPatchApplicationLike();
+            // 初始化TinkerPatch SDK
+            TinkerPatch.init(
+                    tinkerApplicationLike
+//                new TinkerPatch.Builder(tinkerApplicationLike)
+//                    .requestLoader(new OkHttp3Loader())
+//                    .build()
+            )
+                    .reflectPatchLibrary()
+                    .setPatchRollbackOnScreenOff(true)
+                    .setPatchRestartOnSrceenOff(true)
+                    .setFetchPatchIntervalByHours(3)
+            ;
+            // 获取当前的补丁版本
+            Log.d(TAG, "Current patch version is " + TinkerPatch.with().getPatchVersion());
+
+            // fetchPatchUpdateAndPollWithInterval 与 fetchPatchUpdate(false)
+            // 不同的是，会通过handler的方式去轮询
+            TinkerPatch.with().fetchPatchUpdateAndPollWithInterval();
+        }
+    }
+
 
     {
 //        PlatformConfig.setWeixin("wxc4305cfa36ca4412", "55c4884f219efba48782d9bb027e6caf");

@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.han.mvpdome.R;
@@ -21,6 +23,8 @@ import com.han.mvpdome.view.fragment.Mian2Fragment;
 import com.han.mvpdome.view.fragment.Mian3Fragment;
 import com.han.mvpdome.view.fragment.MianFragment;
 import com.han.mvpdome.view.inter.IMainAView;
+import com.tencent.tinker.entry.ApplicationLike;
+import com.tinkerpatch.sdk.TinkerPatch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +37,8 @@ public class MainActivity extends BaseActivity implements IMainAView {
 
     @BindView(R.id.vp_main)
     ViewPager vpMain;
+    @BindView(R.id.tv_name)
+    TextView tvName;
     private MainAPresenterImpl mainAPresenter;
     private ArrayList<BaseFragment> fragmentList;
     private BaseFragment oneFragment, mian1Fragment, mian2Fragment, mian3Fragment;
@@ -49,12 +55,14 @@ public class MainActivity extends BaseActivity implements IMainAView {
 
     @OnClick(R.id.btn)
     public void OnClick() {
-        requestEachCombined(new PermissionsBase() {
-            @Override
-            public void isOK() {
-                ToastUtil.showShortToast(mContext, "权限申请成功");
-            }
-        }, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.VIBRATE);
+//        requestEachCombined(new PermissionsBase() {
+//            @Override
+//            public void isOK() {
+//                ToastUtil.showShortToast(mContext, "权限申请成功");
+//            }
+//        }, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.VIBRATE);
+        tvName.setVisibility(View.VISIBLE);
+        TinkerPatch.with().fetchPatchUpdate(true);
     }
 
     @Override
@@ -89,8 +97,11 @@ public class MainActivity extends BaseActivity implements IMainAView {
                 ToastUtil.showShortToast(mContext, "权限申请成功");
             }
         }, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.VIBRATE);
-    }
 
+
+//接口使用事例
+    }
+    //接口定义
 
     //当前选中的项
     int currenttab = -1;
@@ -103,7 +114,7 @@ public class MainActivity extends BaseActivity implements IMainAView {
         dataMap.put("checkCode", 111 + "");
         dataMap.put("loginName", "ceshi_han");
         dataMap.put("password ", "123456");
-//        mainAPresenter.getList(dataMap);
+        mainAPresenter.getList(dataMap);
 
     }
 
