@@ -33,13 +33,12 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements IMainAView {
+public class MainActivity extends BaseActivity<MainAPresenterImpl> implements IMainAView {
 
     @BindView(R.id.vp_main)
     ViewPager vpMain;
     @BindView(R.id.tv_name)
     TextView tvName;
-    private MainAPresenterImpl mainAPresenter;
     private ArrayList<BaseFragment> fragmentList;
     private BaseFragment oneFragment, mian1Fragment, mian2Fragment, mian3Fragment;
 
@@ -49,20 +48,23 @@ public class MainActivity extends BaseActivity implements IMainAView {
     }
 
     @Override
-    public PresenterBase getPresenterBase() {
-        return new MainAPresenterImpl(this, this);
+    public MainAPresenterImpl getPresenterBase() {
+        return new MainAPresenterImpl();
+
     }
 
     @OnClick(R.id.btn)
     public void OnClick() {
-//        requestEachCombined(new PermissionsBase() {
-//            @Override
-//            public void isOK() {
-//                ToastUtil.showShortToast(mContext, "权限申请成功");
-//            }
-//        }, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.VIBRATE);
         tvName.setVisibility(View.VISIBLE);
         TinkerPatch.with().fetchPatchUpdate(true);
+        Map<String, String> dataMap = new HashMap<>();
+        dataMap.put("checkCode", 111 + "");
+        dataMap.put("loginName", "ceshi_han");
+        dataMap.put("password ", "123456");
+        if (presenterBase != null) {
+            showProgressDialog();
+            presenterBase.getList(dataMap);
+        }
     }
 
     @Override
@@ -108,16 +110,16 @@ public class MainActivity extends BaseActivity implements IMainAView {
 
     @Override
     public void initData() {
-        mainAPresenter = (MainAPresenterImpl) presenterBase;
         //        设置回调
         Map<String, String> dataMap = new HashMap<>();
         dataMap.put("checkCode", 111 + "");
         dataMap.put("loginName", "ceshi_han");
         dataMap.put("password ", "123456");
-        mainAPresenter.getList(dataMap);
-
+        if (presenterBase != null) {
+            showProgressDialog();
+            presenterBase.getList(dataMap);
+        }
     }
-
 
     class MyFrageStatePagerAdapter extends FragmentStatePagerAdapter {
 
@@ -156,20 +158,12 @@ public class MainActivity extends BaseActivity implements IMainAView {
         return false;
     }
 
-    @Override
-    public <T> T request(int requestFlag) {
-        Toast.makeText(this, "" + requestFlag, Toast.LENGTH_LONG).show();
-        return null;
-    }
 
-    @Override
-    public <T> T request1(String requestFlag) {
-        Toast.makeText(this, "" + requestFlag, Toast.LENGTH_LONG).show();
-        return null;
-    }
-
+    //成功回调
     @Override
     public <T> void response(T response, int responseFlag) {
+        dismissProgressDialog();
+        ToastUtil.showShortToast(this, "成功");
 
     }
 

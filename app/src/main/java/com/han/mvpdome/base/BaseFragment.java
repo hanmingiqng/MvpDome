@@ -16,12 +16,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.han.mvpdome.customview.CustomProgressDialog;
 import com.han.mvpdome.httpUtils.ApiWrapper;
 import com.han.mvpdome.inter.PermissionsBase;
 import com.han.mvpdome.presenter.PresenterBase;
+import com.han.mvpdome.utils.HttpUtils;
 import com.han.mvpdome.utils.Logger;
 import com.han.mvpdome.utils.StatusBarUtils;
 import com.han.mvpdome.utils.ToastUtil;
+import com.han.mvpdome.view.inter.ActivityView;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -34,7 +37,7 @@ import io.reactivex.functions.Consumer;
 /**
  * Created by liangleixin on 2016/3/18.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements ActivityView {
     protected BaseActivity activity;
     public ApiWrapper apiWrapper = null;
 
@@ -83,7 +86,9 @@ public abstract class BaseFragment extends Fragment {
     private boolean isViewCreated; // 界面是否已创建完成
     private boolean isVisibleToUser; // 是否对用户可见
     private boolean isDataLoaded; // 数据是否已请求
+
     public abstract boolean isonPauseView(); // 是否开启 返回刷新数据
+
     public static final String TAG = "BaseFragment";
 
     @Override
@@ -152,7 +157,7 @@ public abstract class BaseFragment extends Fragment {
     public void onPause() {
         super.onPause();
         Log.e(TAG, "onPause");
-        if (isonPauseView()){
+        if (isonPauseView()) {
             isDataLoaded = false;
         }
     }
@@ -175,7 +180,7 @@ public abstract class BaseFragment extends Fragment {
     RxPermissions rxPermissions;
 
     public void requestEachCombined(final PermissionsBase permissionsBase, String... permissions) {
-        if (rxPermissions==null){
+        if (rxPermissions == null) {
             rxPermissions = new RxPermissions(this);
         }
         rxPermissions.requestEachCombined(permissions).
@@ -226,6 +231,40 @@ public abstract class BaseFragment extends Fragment {
                     }).create();
         }
         dialog.show();
+    }
+
+    //失败回调吐司
+    @Override
+    public <T> void showToast(String e) {
+        dismissProgressDialog();
+        if (!HttpUtils.isNetWorkAvailable(activity)) {
+            ToastUtil.showShortToast(activity, "网络异常，请检查您的网络...");
+        } else {
+            ToastUtil.showShortToast(activity, e);
+        }
+    }
+
+    //显示等待框
+    public void showProgressDialog() {
+        showProgressDialog("请稍后。。。");
+    }
+
+    //转圈圈dialog
+    public CustomProgressDialog progressDialog;
+
+    public void showProgressDialog(String message) {
+        if (progressDialog == null) {
+            progressDialog = CustomProgressDialog.createDialog(activity);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.setMessage(message);
+        progressDialog.show();
+    }
+
+    //取消等待框
+    public void dismissProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing())
+            progressDialog.dismiss();
     }
 
 }

@@ -9,3 +9,6 @@ logger log
 SmartRefreshLayout 上拉下拉
 rxpermissions 6.0 动态权限
 tinker 热更新
+
+使用弱引用来防止内存泄漏
+

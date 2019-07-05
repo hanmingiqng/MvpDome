@@ -57,7 +57,7 @@ public class MianFragment extends BaseFragment implements IMianFView {
 
     @Override
     public PresenterBase getPresenterBase() {
-        return new MianFPresenterImpl(activity, this);
+        return new MianFPresenterImpl();
     }
 
     @Override

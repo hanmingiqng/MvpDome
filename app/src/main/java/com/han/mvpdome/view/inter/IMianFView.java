@@ -1,6 +1,6 @@
 package com.han.mvpdome.view.inter;
 
-public interface IMianFView {
+public interface IMianFView extends ActivityView {
     //请求标记
     int REQUEST_ONE = 0;
     int REQUEST_TWO = 1;

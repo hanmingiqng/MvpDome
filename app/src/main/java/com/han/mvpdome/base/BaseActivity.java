@@ -35,6 +35,7 @@ import com.han.mvpdome.utils.HttpUtils;
 import com.han.mvpdome.utils.Logger;
 import com.han.mvpdome.utils.StatusBarUtils;
 import com.han.mvpdome.utils.ToastUtil;
+import com.han.mvpdome.view.inter.ActivityView;
 import com.han.mvpdome.view.inter.IMainAView;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -57,7 +58,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * 活动基类
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<P extends PresenterBase> extends AppCompatActivity implements ActivityView {
 
     protected BaseActivity mContext;
 
@@ -65,7 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public ApiWrapper apiWrapper = null;
     public FragmentManager fragmentManager;
     public Unbinder mUnbinder = null;
-    public PresenterBase presenterBase;
+    public P presenterBase;
 
     /**
      * 获取加载View的ID
@@ -103,6 +104,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 //        初始化Presenter层
         presenterBase = getPresenterBase();
+        presenterBase.registerView(this);
         initView();
         initData();
     }
@@ -110,7 +112,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     RxPermissions rxPermissions;
 
     public void requestEachCombined(final PermissionsBase permissionsBase, String... permissions) {
-        if (rxPermissions==null){
+        if (rxPermissions == null) {
             rxPermissions = new RxPermissions(this);
         }
         rxPermissions.requestEachCombined(permissions).
@@ -168,7 +170,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @return
      */
-    public abstract PresenterBase getPresenterBase();
+    public abstract P getPresenterBase();
 
     /**
      * 初始化页面
@@ -202,10 +204,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         // 如果还想使用CompositeSubscription，就必须在创建一个新的对象了。
 //        这句话必须加 要不然容易造成内存泄漏
         mCompositeSubscription.unsubscribe();
-//        取消网络加载中等待框
+        dismissProgressDialog();
         if (presenterBase != null) {
-            presenterBase.dismissProgressDialog();
+            //Activity销毁时的调用，让具体实现BasePresenter中onViewDestroy()方法做出决定
+            presenterBase.destroy();
         }
+//        取消网络加载中等待框
+//        if (presenterBase != null) {
+//            presenterBase.dismissProgressDialog();
+//        }
     }
 
     //设置activity沉浸式状态栏
@@ -234,6 +241,42 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    //失败回调吐司
+    @Override
+    public <T> void showToast(String e) {
+        dismissProgressDialog();
+        if (!HttpUtils.isNetWorkAvailable(mContext)) {
+            ToastUtil.showShortToast(this, "网络异常，请检查您的网络...");
+        } else {
+            ToastUtil.showShortToast(this, e);
+        }
+    }
+
+    //显示等待框
+    public void showProgressDialog() {
+        showProgressDialog("请稍后。。。");
+    }
+
+    //转圈圈dialog
+    public CustomProgressDialog progressDialog;
+
+    public void showProgressDialog(String message) {
+        if (progressDialog == null) {
+            progressDialog = CustomProgressDialog.createDialog(mContext);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.setMessage(message);
+        progressDialog.show();
+    }
+
+    //取消等待框
+    public void dismissProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
 
     //轮播图
 //    public static class BannerViewHolder implements MZViewHolder<BannerList.DataBean> {

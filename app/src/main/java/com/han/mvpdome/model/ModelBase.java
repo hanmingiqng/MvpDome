@@ -2,6 +2,7 @@ package com.han.mvpdome.model;
 
 import android.content.Context;
 
+import com.han.mvpdome.base.BaseAction1;
 import com.han.mvpdome.beans.ErrorEvent;
 import com.han.mvpdome.customview.CustomProgressDialog;
 import com.han.mvpdome.httpUtils.ApiWrapper;
@@ -26,33 +27,16 @@ import rx.subscriptions.CompositeSubscription;
  * @name hanmingqing
  * @user hanmq
  */
-public class ModerBase {
+public class ModelBase {
     public ApiWrapper apiWrapper;
-    Context mContext;
-    private static final String TAG = "ModerBase";
+    private static final String TAG = "ModelBase";
     public CompositeSubscription mCompositeSubscription;
 
-    public ModerBase(Context mContext) {
-        this.mContext = mContext;
+    public ModelBase() {
         apiWrapper = new ApiWrapper();
         mCompositeSubscription = new CompositeSubscription();
     }
 
-    public void showProgressDialog() {
-        showProgressDialog("请稍后。。。");
-    }
-
-    //转圈圈dialog
-    public CustomProgressDialog progressDialog;
-
-    public void showProgressDialog(String message) {
-        if (progressDialog == null) {
-            progressDialog = CustomProgressDialog.createDialog(mContext);
-            progressDialog.setCanceledOnTouchOutside(false);
-        }
-        progressDialog.setMessage(message);
-        progressDialog.show();
-    }
 
     /**
      * 创建观察者
@@ -61,7 +45,7 @@ public class ModerBase {
      * @param <T>
      * @return
      */
-    public <T> Subscriber newSubscriber(final Action1<? super T> onNext) {
+    public <T> Subscriber newSubscriber(final BaseAction1<? super T> onNext) {
         return new Subscriber<T>() {
             @Override
             public void onStart() {
@@ -78,27 +62,22 @@ public class ModerBase {
             public void onError(Throwable e) {
                 if (e instanceof RetrofitUtil.APIException) {
                     RetrofitUtil.APIException exception = (RetrofitUtil.APIException) e;
-                    ToastUtil.showShortToast(mContext, exception.message);
+                    onNext.onError(exception.message);
                 } else if (e instanceof SocketTimeoutException) {
-                    ToastUtil.showShortToast(mContext, "链接超时");
+                    onNext.onError("链接超时");
                 } else if (e instanceof ConnectException) {
-                    ToastUtil.showShortToast(mContext, e.getMessage());
+                    onNext.onError(e.getMessage());
                 } else if (e instanceof HttpException) {
 
                     HttpException exception = (HttpException) e;
                     String message = exception.response().message();
                     int code = exception.response().code();
                     if (code == 500) {
-//                        ToastUtil.showShortToast(mContext, "网络异常");
                     }
                 }
-                if (!HttpUtils.isNetWorkAvailable(mContext)) {
-                    ToastUtil.showShortToast(mContext, "网络异常，请检查您的网络...");
-                }
+                onNext.onError("");
                 Logger.e(TAG, String.valueOf(e.getMessage()) + ".......");
                 EventBus.getDefault().post(new ErrorEvent("Error"));
-
-                dismissProgressDialog();
             }
 
             @Override
@@ -109,11 +88,6 @@ public class ModerBase {
             }
 
         };
-    }
-
-    public void dismissProgressDialog() {
-        if (progressDialog != null && progressDialog.isShowing())
-            progressDialog.dismiss();
     }
 
 }

@@ -9,7 +9,9 @@ import android.widget.TextView;
 import com.han.mvpdome.R;
 import com.han.mvpdome.base.BaseFragment;
 import com.han.mvpdome.presenter.PresenterBase;
+import com.han.mvpdome.presenter.inter.IMian1FPresenter;
 import com.han.mvpdome.utils.Logger;
+import com.han.mvpdome.view.inter.IMian1FView;
 
 import butterknife.BindView;
 
@@ -19,10 +21,11 @@ import butterknife.BindView;
  * @name hanmingqing
  * @user hanmq
  */
-public class Mian1Fragment extends BaseFragment {
+public class Mian1Fragment extends BaseFragment implements IMian1FView {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     private String data;
+    private IMian1FPresenter mIMian1FPresenter;
 
     @Override
     public int getLayoutId() {
@@ -61,4 +64,13 @@ public class Mian1Fragment extends BaseFragment {
         return true;
     }
 
+    @Override
+    public <T> T request(int requestFlag) {
+        return null;
+    }
+
+    @Override
+    public <T> void response(T response, int responseFlag) {
+
+    }
 }
