@@ -1,22 +1,15 @@
 package com.han.mvpdome.model.impl;
 
-import android.content.Context;
-
 import com.han.mvpdome.base.BaseAction1;
-import com.han.mvpdome.customview.CustomProgressDialog;
-import com.han.mvpdome.httpUtils.ApiWrapper;
 import com.han.mvpdome.httpUtils.Response;
 import com.han.mvpdome.model.ModelBase;
 import com.han.mvpdome.model.inter.IMainAModel;
 import com.han.mvpdome.presenter.callback.CallBack;
-import com.han.mvpdome.utils.HttpUtils;
-import com.han.mvpdome.utils.ToastUtil;
 
 import java.util.Map;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MainAModelImpl extends ModelBase implements IMainAModel {

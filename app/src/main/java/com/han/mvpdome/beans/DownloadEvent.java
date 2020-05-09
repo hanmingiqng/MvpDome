@@ -1,11 +1,13 @@
 package com.han.mvpdome.beans;
 
+import java.io.File;
 import java.io.Serializable;
 
 //下载返回实体类
 public class DownloadEvent implements Serializable {
     private ColorEnum originClass;
     private int download;
+    private File file;
 
     public ColorEnum getOriginClass() {
         return originClass;
@@ -22,6 +24,14 @@ public class DownloadEvent implements Serializable {
 
     public void setDownload(int download) {
         this.download = download;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 
     public enum ColorEnum {

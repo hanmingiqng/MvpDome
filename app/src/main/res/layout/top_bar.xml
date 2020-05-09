@@ -15,7 +15,7 @@
     <RelativeLayout
         android:id="@+id/bgTitle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/text44dp"
+        android:layout_height="44dp"
         android:background="@color/white"
         android:gravity="center_vertical">
 
@@ -26,8 +26,8 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:filterTouchesWhenObscured="true"
-            android:paddingLeft="@dimen/text20dp"
-            android:paddingRight="@dimen/text20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:src="@mipmap/back" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:maxLength="15"
             android:text="@string/app_name"
             android:textColor="@color/top_title"
-            android:textSize="@dimen/title_size48"
+            android:textSize="48sp"
             android:textStyle="bold" />
 
         <TextView
@@ -50,11 +50,11 @@
             android:layout_alignParentRight="true"
             android:filterTouchesWhenObscured="true"
             android:gravity="center"
-            android:paddingLeft="@dimen/text20dp"
-            android:paddingRight="@dimen/text20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:text="管理"
             android:textColor="#333"
-            android:textSize="40px"
+            android:textSize="40sp"
             android:visibility="gone" />
 
         <ImageView
@@ -64,8 +64,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:filterTouchesWhenObscured="true"
-            android:paddingLeft="@dimen/text20dp"
-            android:paddingRight="@dimen/text20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:visibility="gone" />
 
         <View

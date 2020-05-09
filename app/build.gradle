@@ -84,7 +84,12 @@ dependencies {
 //    6.0动态权限申请
     // For developers using the Android Support Library
     implementation deps.rxPermissions
-
+//    图表库
+//    MPAndroidChart
+//    工具
+//    AndroidUtilCode
+//    视频播放
+//        implementation 'com.shuyu:GSYVideoPlayer:6.0.1'
 //    热更新
     compileOnly("com.tinkerpatch.tinker:tinker-android-anno:" + depsVersion.TINKER_VERSION) {
         changing = true

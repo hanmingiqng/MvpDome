@@ -1,14 +1,10 @@
 package com.han.mvpdome.base;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -20,8 +16,7 @@ import com.han.mvpdome.customview.CustomProgressDialog;
 import com.han.mvpdome.httpUtils.ApiWrapper;
 import com.han.mvpdome.inter.PermissionsBase;
 import com.han.mvpdome.presenter.PresenterBase;
-import com.han.mvpdome.utils.HttpUtils;
-import com.han.mvpdome.utils.Logger;
+import com.han.mvpdome.utils.NetworkUtils;
 import com.han.mvpdome.utils.StatusBarUtils;
 import com.han.mvpdome.utils.ToastUtil;
 import com.han.mvpdome.view.inter.ActivityView;
@@ -237,7 +232,7 @@ public abstract class BaseFragment extends Fragment implements ActivityView {
     @Override
     public <T> void showToast(String e) {
         dismissProgressDialog();
-        if (!HttpUtils.isNetWorkAvailable(activity)) {
+        if (!NetworkUtils.isNetworkAvailable(activity)) {
             ToastUtil.showShortToast(activity, "网络异常，请检查您的网络...");
         } else {
             ToastUtil.showShortToast(activity, e);

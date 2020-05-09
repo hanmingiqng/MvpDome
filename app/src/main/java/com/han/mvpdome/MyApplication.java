@@ -1,8 +1,12 @@
 package com.han.mvpdome;
 
 import android.app.Application;
+import android.content.ComponentCallbacks;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Vibrator;
+import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.bumptech.glide.request.target.ViewTarget;
@@ -13,6 +17,8 @@ import com.orhanobut.logger.Logger;
 import com.tencent.tinker.entry.ApplicationLike;
 import com.tinkerpatch.sdk.TinkerPatch;
 import com.tinkerpatch.sdk.loader.TinkerPatchApplicationLike;
+
+import io.reactivex.annotations.NonNull;
 
 /**
  * xmind
@@ -67,22 +73,12 @@ public class MyApplication extends Application {
 //设置全局异常捕获
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(context);
-// 我们可以从这里获得Tinker加载过程的信息
-//        tinkerApplicationLike = TinkerPatchApplicationLike.getTinkerPatchApplicationLike();
-//
-//        // 初始化TinkerPatch SDK, 更多配置可参照API章节中的,初始化SDK
-//        TinkerPatch.init(tinkerApplicationLike)
-//                .reflectPatchLibrary()
-//                .setPatchRollbackOnScreenOff(true)
-//                .setPatchRestartOnSrceenOff(true)
-//                .setFetchPatchIntervalByHours(3);
-//        // 获取当前的补丁版本
-//        Log.d(TAG, "Current patch version is " + TinkerPatch.with().getPatchVersion());
-//        // 每隔3个小时(通过setFetchPatchIntervalByHours设置)去访问后台时候有更新,通过handler实现轮训的效果
-//        TinkerPatch.with().fetchPatchUpdateAndPollWithInterval();
-//        TinkerPatch.with().fetchPatchUpdate(true);
+//        热修复
         initTinkerPatch();
+
     }
+
+
     /**
      * 我们需要确保至少对主进程跟patch进程初始化 TinkerPatch
      */

@@ -59,6 +59,8 @@ public class AppConstant {
         public static final String SEND_CODE = "sendSms";
         public static final String getBank = "company/accountLogin";
 
+        private String apkUrl = "";
+
     }
 
     /**

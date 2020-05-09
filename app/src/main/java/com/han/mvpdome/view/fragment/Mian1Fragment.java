@@ -64,10 +64,6 @@ public class Mian1Fragment extends BaseFragment implements IMian1FView {
         return true;
     }
 
-    @Override
-    public <T> T request(int requestFlag) {
-        return null;
-    }
 
     @Override
     public <T> void response(T response, int responseFlag) {

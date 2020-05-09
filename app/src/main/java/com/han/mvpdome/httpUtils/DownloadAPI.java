@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import rx.Subscriber;
@@ -36,8 +37,13 @@ public class DownloadAPI {
                 .retryOnConnectionFailure(true)
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .build();
-
-
+//        retrofit = new Retrofit.Builder()//
+//                .client(client)//
+//                .baseUrl(baseUrl)//
+//                .addConverterFactory(GsonConverterFactory.create())//
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                .build();
+//        getRetrofit(baseUrl).create(ApiService.class);
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .client(client)

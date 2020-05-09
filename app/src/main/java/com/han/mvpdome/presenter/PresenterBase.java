@@ -1,16 +1,7 @@
 package com.han.mvpdome.presenter;
 
-import android.content.Context;
-import android.view.View;
-
-import com.han.mvpdome.customview.CustomProgressDialog;
-import com.han.mvpdome.httpUtils.ApiWrapper;
 import com.han.mvpdome.model.ModelBase;
-import com.han.mvpdome.model.impl.MainAModelImpl;
-import com.han.mvpdome.presenter.inter.IMainAPresenter;
-import com.han.mvpdome.utils.HttpUtils;
 import com.han.mvpdome.view.inter.ActivityView;
-import com.han.mvpdome.view.inter.IMainAView;
 
 import java.lang.ref.WeakReference;
 

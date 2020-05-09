@@ -1,17 +1,20 @@
 package com.han.mvpdome.view.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.han.mvpdome.R;
+import com.han.mvpdome.Text;
 import com.han.mvpdome.base.BaseFragment;
 import com.han.mvpdome.presenter.PresenterBase;
 import com.han.mvpdome.presenter.impl.MianFPresenterImpl;
 import com.han.mvpdome.presenter.inter.IMianFPresenter;
 import com.han.mvpdome.utils.Logger;
+import com.han.mvpdome.utils.ToastUtil;
 import com.han.mvpdome.view.inter.IMianFView;
 
 import butterknife.BindView;
@@ -47,6 +50,8 @@ public class MianFragment extends BaseFragment implements IMianFView {
     @Override
     public void initData() {
         Logger.e(TAG, "initData: " + tvTitle + getClass().getSimpleName());//打印当前活动名
+        Log.e("name", "OnClick: " + Text.name);
+        ToastUtil.showShortToast(activity, Text.name);
 
     }
 

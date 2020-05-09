@@ -1,15 +1,10 @@
 package com.han.mvpdome.model;
 
-import android.content.Context;
-
 import com.han.mvpdome.base.BaseAction1;
 import com.han.mvpdome.beans.ErrorEvent;
-import com.han.mvpdome.customview.CustomProgressDialog;
 import com.han.mvpdome.httpUtils.ApiWrapper;
 import com.han.mvpdome.httpUtils.RetrofitUtil;
-import com.han.mvpdome.utils.HttpUtils;
 import com.han.mvpdome.utils.Logger;
-import com.han.mvpdome.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -18,7 +13,6 @@ import java.net.SocketTimeoutException;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
-import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
 /**

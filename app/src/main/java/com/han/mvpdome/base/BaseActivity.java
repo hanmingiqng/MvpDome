@@ -1,8 +1,6 @@
 package com.han.mvpdome.base;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,29 +12,23 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.han.mvpdome.R;
-import com.han.mvpdome.beans.ErrorEvent;
+import com.han.mvpdome.AppConstant;
+import com.han.mvpdome.MyApplication;
 import com.han.mvpdome.customview.CustomProgressDialog;
 import com.han.mvpdome.httpUtils.ApiWrapper;
-import com.han.mvpdome.httpUtils.HttpUtil;
-import com.han.mvpdome.httpUtils.RetrofitUtil;
 import com.han.mvpdome.inter.PermissionsBase;
 import com.han.mvpdome.presenter.PresenterBase;
 import com.han.mvpdome.utils.AppManager;
-import com.han.mvpdome.utils.HttpUtils;
+import com.han.mvpdome.utils.LayoutAdaption;
 import com.han.mvpdome.utils.Logger;
+import com.han.mvpdome.utils.NetworkUtils;
 import com.han.mvpdome.utils.StatusBarUtils;
 import com.han.mvpdome.utils.ToastUtil;
 import com.han.mvpdome.view.inter.ActivityView;
-import com.han.mvpdome.view.inter.IMainAView;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -44,15 +36,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import io.reactivex.functions.Consumer;
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscriber;
-import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -82,8 +69,10 @@ public abstract class BaseActivity<P extends PresenterBase> extends AppCompatAct
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         mContext = this;
+        LayoutAdaption.setCustomDensity(mContext, MyApplication.getInstance());
+        super.onCreate(savedInstanceState);
+
         initSaveInstance(savedInstanceState);
         AppManager.getAppManager().addActivity(this);
 
@@ -247,7 +236,7 @@ public abstract class BaseActivity<P extends PresenterBase> extends AppCompatAct
     @Override
     public <T> void showToast(String e) {
         dismissProgressDialog();
-        if (!HttpUtils.isNetWorkAvailable(mContext)) {
+        if (!NetworkUtils.isNetworkAvailable(mContext)) {
             ToastUtil.showShortToast(this, "网络异常，请检查您的网络...");
         } else {
             ToastUtil.showShortToast(this, e);
