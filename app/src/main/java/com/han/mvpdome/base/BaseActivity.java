@@ -16,10 +16,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.han.mvpdome.AppConstant;
 import com.han.mvpdome.MyApplication;
 import com.han.mvpdome.customview.CustomProgressDialog;
-import com.han.mvpdome.httpUtils.ApiWrapper;
+import com.han.mvpdome.httpUtils.retrofit.ApiWrapper;
 import com.han.mvpdome.inter.PermissionsBase;
 import com.han.mvpdome.presenter.PresenterBase;
 import com.han.mvpdome.utils.AppManager;
@@ -28,7 +27,7 @@ import com.han.mvpdome.utils.Logger;
 import com.han.mvpdome.utils.NetworkUtils;
 import com.han.mvpdome.utils.StatusBarUtils;
 import com.han.mvpdome.utils.ToastUtil;
-import com.han.mvpdome.view.inter.ActivityView;
+import com.han.mvpdome.view.inter.IBaseView;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -38,14 +37,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
 import io.reactivex.functions.Consumer;
 import rx.subscriptions.CompositeSubscription;
 
 /**
  * 活动基类
  */
-public abstract class BaseActivity<P extends PresenterBase> extends AppCompatActivity implements ActivityView {
+public abstract class BaseActivity<P extends PresenterBase> extends AppCompatActivity implements IBaseView {
 
     protected BaseActivity mContext;
 

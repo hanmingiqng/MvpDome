@@ -1,4 +1,4 @@
-package com.han.mvpdome.beans;
+package com.han.mvpdome.beans.http;
 
 import java.io.File;
 import java.io.Serializable;

@@ -1,10 +1,13 @@
-package com.han.mvpdome.httpUtils;
+package com.han.mvpdome.httpUtils.retrofit;
 
 import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.han.mvpdome.MyApplication;
 import com.han.mvpdome.db.CacheDao;
+import com.han.mvpdome.httpUtils.ApiService;
+import com.han.mvpdome.httpUtils.CacheInterceptor;
+import com.han.mvpdome.beans.http.Response;
 import com.han.mvpdome.utils.ClippingPicture;
 import com.han.mvpdome.utils.Logger;
 import com.han.mvpdome.utils.NetworkUtils;

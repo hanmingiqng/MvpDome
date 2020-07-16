@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MvpDome</string>
+    <string name="text_ceshi">测试</string>
+    <string name="text_quanxian">申请权限 测试版本</string>
 </resources>

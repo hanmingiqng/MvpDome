@@ -1,7 +1,9 @@
 package com.han.mvpdome.presenter;
 
+import com.han.mvpdome.beans.http.Response;
 import com.han.mvpdome.model.ModelBase;
-import com.han.mvpdome.view.inter.ActivityView;
+import com.han.mvpdome.presenter.callback.CallBack;
+import com.han.mvpdome.view.inter.IBaseView;
 
 import java.lang.ref.WeakReference;
 
@@ -11,7 +13,7 @@ import java.lang.ref.WeakReference;
  * @name hanmingqing
  * @user hanmq
  */
-public abstract class PresenterBase<V extends ActivityView, M extends ModelBase> {
+public abstract class PresenterBase<V extends  IBaseView,M extends ModelBase> {
     private WeakReference<V> wrf;
     public M model;
 
@@ -20,13 +22,13 @@ public abstract class PresenterBase<V extends ActivityView, M extends ModelBase>
 
     }
 
-    //弱链接 设置回调
-    public void registerView(V view) {
+    //弱链接 设置回调 设置 view 调用IBaseView 中的方法
+    public void registerView(V  view) {
         wrf = new WeakReference<V>(view);
     }
 
-    //软连接 回去回调
-    public V getView() {
+    //软连接 回去回调 判断是否存在
+    public IBaseView getView() {
         return wrf == null ? null : wrf.get();
     }
 

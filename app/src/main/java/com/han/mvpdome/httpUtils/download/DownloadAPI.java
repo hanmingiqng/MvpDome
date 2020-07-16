@@ -1,9 +1,10 @@
-package com.han.mvpdome.httpUtils;
+package com.han.mvpdome.httpUtils.download;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 
+import com.han.mvpdome.httpUtils.ApiService;
 import com.han.mvpdome.utils.FileUtils;
 
 import java.io.File;
@@ -13,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
-import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import rx.Subscriber;

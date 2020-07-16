@@ -1,9 +1,5 @@
 package com.han.mvpdome.view.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.han.mvpdome.R;
@@ -11,7 +7,7 @@ import com.han.mvpdome.base.BaseFragment;
 import com.han.mvpdome.presenter.PresenterBase;
 import com.han.mvpdome.presenter.inter.IMian1FPresenter;
 import com.han.mvpdome.utils.Logger;
-import com.han.mvpdome.view.inter.IMian1FView;
+import com.han.mvpdome.view.inter.IBaseView;
 
 import butterknife.BindView;
 
@@ -21,7 +17,7 @@ import butterknife.BindView;
  * @name hanmingqing
  * @user hanmq
  */
-public class Mian1Fragment extends BaseFragment implements IMian1FView {
+public class Mian1Fragment extends BaseFragment  {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     private String data;

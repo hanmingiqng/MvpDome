@@ -1,4 +1,4 @@
-package com.han.mvpdome.httpUtils;
+package com.han.mvpdome.httpUtils.download;
 
 import android.os.Parcel;
 import android.os.Parcelable;

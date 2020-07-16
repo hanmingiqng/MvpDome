@@ -1,12 +1,8 @@
 package com.han.mvpdome;
 
 import android.app.Application;
-import android.content.ComponentCallbacks;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.bumptech.glide.request.target.ViewTarget;
@@ -17,8 +13,6 @@ import com.orhanobut.logger.Logger;
 import com.tencent.tinker.entry.ApplicationLike;
 import com.tinkerpatch.sdk.TinkerPatch;
 import com.tinkerpatch.sdk.loader.TinkerPatchApplicationLike;
-
-import io.reactivex.annotations.NonNull;
 
 /**
  * xmind
@@ -75,6 +69,10 @@ public class MyApplication extends Application {
         crashHandler.init(context);
 //        热修复
         initTinkerPatch();
+
+//        if (BuildConfig.DEBUG) {
+//            Timber.plant(new Timber.DebugTree());
+//        }
 
     }
 

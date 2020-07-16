@@ -1,7 +1,7 @@
-package com.han.mvpdome.httpUtils;
+package com.han.mvpdome.beans.http;
 
 /**
- * 描述：基础的数据封装类
+ * 描述：基础的数据封装类  不返回数据
  */
 
 public class ResponseNodata {

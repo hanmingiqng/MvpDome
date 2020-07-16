@@ -1,6 +1,8 @@
-package com.han.mvpdome.httpUtils;
+package com.han.mvpdome.httpUtils.retrofit;
 
 import com.han.mvpdome.AppConstant;
+import com.han.mvpdome.beans.http.Response;
+import com.han.mvpdome.beans.http.ResponseNodata;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class ApiWrapper extends RetrofitUtil {
         return getApiService(AppConstant.RequestPath.API).sendSms(generateRequestBody(params));
     }
     //获取银行卡
-    public Observable<Response> getBank( Map<String, String> params) {
+    public Observable<Response> getBank(Map<String, String> params) {
         return getApiService(AppConstant.RequestPath.API).getBank(generateRequestBody(params));
     }
 

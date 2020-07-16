@@ -1,6 +1,7 @@
-package com.han.mvpdome.beans;
+package com.han.mvpdome.beans.http;
 
 /**
+ * html 返回错误 数据
  * @author liyuanli
  * @date 2018/7/10
  */

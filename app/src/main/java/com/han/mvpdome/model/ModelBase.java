@@ -1,15 +1,16 @@
 package com.han.mvpdome.model;
 
 import com.han.mvpdome.base.BaseAction1;
-import com.han.mvpdome.beans.ErrorEvent;
-import com.han.mvpdome.httpUtils.ApiWrapper;
-import com.han.mvpdome.httpUtils.RetrofitUtil;
+import com.han.mvpdome.beans.http.ErrorEvent;
+import com.han.mvpdome.httpUtils.retrofit.ApiWrapper;
+import com.han.mvpdome.httpUtils.retrofit.RetrofitUtil;
 import com.han.mvpdome.utils.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.util.Map;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;

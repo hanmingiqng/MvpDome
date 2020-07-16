@@ -1,4 +1,4 @@
-package com.han.mvpdome.httpUtils;
+package com.han.mvpdome.httpUtils.download;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.os.FileObserver;
 import android.util.Log;
 
 import com.han.mvpdome.AppConstant;
-import com.han.mvpdome.beans.DownloadEvent;
+import com.han.mvpdome.beans.http.DownloadEvent;
 import com.han.mvpdome.utils.DeviceUtil;
 import com.han.mvpdome.utils.StringUtils;
 

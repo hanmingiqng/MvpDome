@@ -10,6 +10,7 @@ import com.han.mvpdome.R;
 import com.han.mvpdome.base.BaseFragment;
 import com.han.mvpdome.presenter.PresenterBase;
 import com.han.mvpdome.utils.Logger;
+import com.han.mvpdome.view.inter.IBaseView;
 
 import butterknife.BindView;
 
@@ -62,4 +63,8 @@ public class Mian3Fragment extends BaseFragment {
     }
 
 
+    @Override
+    public <T> void response(T response, int responseFlag) {
+
+    }
 }

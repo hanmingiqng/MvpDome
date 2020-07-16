@@ -1,7 +1,7 @@
-package com.han.mvpdome.httpUtils;
+package com.han.mvpdome.httpUtils.download;
 
 
-import com.han.mvpdome.beans.DownloadProgressResponseBody;
+import com.han.mvpdome.beans.http.DownloadProgressResponseBody;
 
 import java.io.IOException;
 

@@ -13,13 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.han.mvpdome.customview.CustomProgressDialog;
-import com.han.mvpdome.httpUtils.ApiWrapper;
+import com.han.mvpdome.httpUtils.retrofit.ApiWrapper;
 import com.han.mvpdome.inter.PermissionsBase;
 import com.han.mvpdome.presenter.PresenterBase;
 import com.han.mvpdome.utils.NetworkUtils;
 import com.han.mvpdome.utils.StatusBarUtils;
 import com.han.mvpdome.utils.ToastUtil;
-import com.han.mvpdome.view.inter.ActivityView;
+import com.han.mvpdome.view.inter.IBaseView ;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -32,7 +32,7 @@ import io.reactivex.functions.Consumer;
 /**
  * Created by liangleixin on 2016/3/18.
  */
-public abstract class BaseFragment extends Fragment implements ActivityView {
+public abstract class BaseFragment extends Fragment implements IBaseView  {
     protected BaseActivity activity;
     public ApiWrapper apiWrapper = null;
 

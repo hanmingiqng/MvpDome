@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
-        android:text="1"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="97dp"
+        android:layout_marginEnd="206dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginRight="206dp"
+        android:layout_marginStart="114dp"
+        android:layout_marginTop="93dp"
+        android:text="12131"
+        app:layout_constraintBottom_toTopOf="@+id/btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
-        android:id="@+id/btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="166dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="166dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="124dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.792"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
 </android.support.constraint.ConstraintLayout>

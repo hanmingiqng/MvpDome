@@ -1,14 +1,13 @@
-package com.han.mvpdome.httpUtils;
+package com.han.mvpdome.beans.http;
 
 /**
- * 描述：基础的数据封装类
+ * 描述：基础的数据封装类 返回list收据
  */
 
-public class Response<T> {
+public class ResponseList<T> {
 
     public boolean success;
     public String message;
-    public int  code;
     public T data;
 
     public boolean isSuccess() {

@@ -1,61 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
 
     <include
         android:id="@+id/cell1"
         layout="@layout/top_bar" />
 
     <Button
+        android:id="@+id/button2"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:text="1" />
+        android:layout_marginTop="8dp"
+        android:text="@string/text_ceshi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cell1" />
 
     <Button
-        android:layout_width="180dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="180dp"
-        android:text="1" />
+        android:layout_marginBottom="8dp"
+        android:text="@string/text_ceshi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="申请权限 测试版本" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="140dp"
+        android:text="@string/text_quanxian"
+        app:layout_constraintStart_toStartOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/cell1" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="10dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="100dp">
+        app:cardElevation="9dp"
+        app:cardMaxElevation="100dp"
+        app:layout_constraintStart_toStartOf="@+id/btn"
+        app:layout_constraintTop_toBottomOf="@+id/btn">
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="111"
-            android:visibility="gone" />
+            android:text="@string/text_ceshi"
+            android:visibility="visible" />
     </android.support.v7.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/resource"
-        android:elevation="5dp">
+    <!--<LinearLayout-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:background="@drawable/resource"-->
+    <!--android:elevation="5dp">-->
 
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp" />
+        android:layout_width="0dp"
+        android:layout_height="83dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

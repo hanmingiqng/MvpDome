@@ -1,6 +1,6 @@
-package com.han.mvpdome.beans;
+package com.han.mvpdome.beans.http;
 
-import com.han.mvpdome.httpUtils.DownloadProgressListener;
+import com.han.mvpdome.httpUtils.download.DownloadProgressListener;
 
 import java.io.IOException;
 

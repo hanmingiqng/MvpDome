@@ -24,7 +24,7 @@ import com.han.mvpdome.R;
 import com.han.mvpdome.Text;
 import com.han.mvpdome.base.BaseActivity;
 import com.han.mvpdome.base.BaseFragment;
-import com.han.mvpdome.beans.DownloadEvent;
+import com.han.mvpdome.beans.http.DownloadEvent;
 import com.han.mvpdome.inter.PermissionsBase;
 import com.han.mvpdome.presenter.impl.MainAPresenterImpl;
 import com.han.mvpdome.utils.Logger;
@@ -33,7 +33,7 @@ import com.han.mvpdome.view.fragment.Mian1Fragment;
 import com.han.mvpdome.view.fragment.Mian2Fragment;
 import com.han.mvpdome.view.fragment.Mian3Fragment;
 import com.han.mvpdome.view.fragment.MianFragment;
-import com.han.mvpdome.view.inter.IMainAView;
+import com.han.mvpdome.view.inter.IBaseView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -46,7 +46,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity<MainAPresenterImpl> implements IMainAView {
+public class MainActivity extends BaseActivity<MainAPresenterImpl>   {
 
     @BindView(R.id.vp_main)
     ViewPager vpMain;
@@ -187,7 +187,7 @@ public class MainActivity extends BaseActivity<MainAPresenterImpl> implements IM
         dataMap.put("password ", "123456");
         if (presenterBase != null) {
             showProgressDialog();
-            presenterBase.getList(dataMap);
+            presenterBase.getList(dataMap,RESPONSE_ONE);
         }
     }
 
@@ -225,7 +225,7 @@ public class MainActivity extends BaseActivity<MainAPresenterImpl> implements IM
 
     @Override
     public boolean haveEventBus() {
-        return true;
+        return false;
     }
 
     int download = 0;
@@ -287,7 +287,10 @@ public class MainActivity extends BaseActivity<MainAPresenterImpl> implements IM
     @Override
     public <T> void response(T response, int responseFlag) {
         dismissProgressDialog();
-        ToastUtil.showShortToast(this, "成功");
+        if (responseFlag==RESPONSE_ONE){
+            ToastUtil.showShortToast(this, "list成功");
+        }
+
 
     }
 

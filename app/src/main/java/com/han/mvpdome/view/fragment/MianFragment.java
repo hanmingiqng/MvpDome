@@ -1,10 +1,6 @@
 package com.han.mvpdome.view.fragment;
 
-import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.han.mvpdome.R;
@@ -15,12 +11,9 @@ import com.han.mvpdome.presenter.impl.MianFPresenterImpl;
 import com.han.mvpdome.presenter.inter.IMianFPresenter;
 import com.han.mvpdome.utils.Logger;
 import com.han.mvpdome.utils.ToastUtil;
-import com.han.mvpdome.view.inter.IMianFView;
+import com.han.mvpdome.view.inter.IBaseView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created on 2019-5-5  17:23
@@ -28,7 +21,7 @@ import butterknife.Unbinder;
  * @name hanmingqing
  * @user hanmq
  */
-public class MianFragment extends BaseFragment implements IMianFView {
+public class MianFragment extends BaseFragment {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     private String data;
@@ -76,10 +69,6 @@ public class MianFragment extends BaseFragment implements IMianFView {
     }
 
 
-    @Override
-    public <T> T request(int requestFlag) {
-        return null;
-    }
 
     @Override
     public <T> void response(T response, int responseFlag) {
