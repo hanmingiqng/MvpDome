@@ -7,6 +7,15 @@
     android:layout_height="match_parent">
 
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/text_ceshi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cell1" />
+
     <include
         android:id="@+id/cell1"
         layout="@layout/top_bar" />
@@ -23,10 +32,11 @@
     <Button
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/text_ceshi"
+        android:text="版本1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardview" />
 
     <Button
         android:id="@+id/btn"
